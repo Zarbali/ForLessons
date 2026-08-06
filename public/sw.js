@@ -1,18 +1,25 @@
-/* Lingua basic service worker — offline shell cache */
-const CACHE = "lingua-v1";
-const PRECACHE = ["/", "/manifest.json"];
+/* Veronika service worker — works with GitHub Pages base path */
+const BASE = self.location.pathname.replace(/\/sw\.js$/, "") || "";
+const CACHE = "veronika-v2";
+const PRECACHE = [`${BASE}/`, `${BASE}/manifest.json`];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open(CACHE).then((cache) => cache.addAll(PRECACHE)).then(() => self.skipWaiting()),
+    caches
+      .open(CACHE)
+      .then((cache) => cache.addAll(PRECACHE))
+      .then(() => self.skipWaiting()),
   );
 });
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))),
-    ).then(() => self.clients.claim()),
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))),
+      )
+      .then(() => self.clients.claim()),
   );
 });
 

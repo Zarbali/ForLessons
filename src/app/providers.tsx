@@ -8,7 +8,8 @@ import { KeyboardShortcuts } from "@/components/layout/KeyboardShortcuts";
 
 function registerServiceWorker() {
   if (typeof window === "undefined" || !("serviceWorker" in navigator)) return;
-  void navigator.serviceWorker.register("/sw.js").catch(() => {
+  const base = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  void navigator.serviceWorker.register(`${base}/sw.js`).catch(() => {
     // Offline shell is optional during local/dev — ignore registration failures
   });
 }

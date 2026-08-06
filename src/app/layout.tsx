@@ -74,7 +74,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${syne.variable} ${figtree.variable} h-full antialiased`}
     >
       <head>
-        <link rel="manifest" href="/manifest.json" />
+        <link
+          rel="manifest"
+          href={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/manifest.json`}
+        />
         <meta name="mobile-web-app-capable" content="yes" />
         <script
           dangerouslySetInnerHTML={{
