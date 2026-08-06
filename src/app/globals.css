@@ -1,26 +1,273 @@
 @import "tailwindcss";
 
+/* —— Veronika design tokens —— */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #eef3f7;
+  --foreground: #0f172a;
+  --muted: #e2e8f0;
+  --muted-foreground: #64748b;
+  --surface: rgba(255, 255, 255, 0.62);
+  --surface-elevated: rgba(255, 255, 255, 0.82);
+  --surface-hover: rgba(15, 23, 42, 0.05);
+  --border: rgba(15, 23, 42, 0.08);
+  --border-strong: rgba(15, 23, 42, 0.14);
+
+  --brand: #16a34a;
+  --brand-soft: #4ade80;
+  --brand-foreground: #052e16;
+  --accent-cyan: #06b6d4;
+  --ink: #0f172a;
+  --spring: #16a34a;
+  --mist: #eef3f7;
+
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-blur: 18px;
+
+  --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.06);
+  --shadow-lift: 0 18px 50px rgba(15, 23, 42, 0.12);
+  --shadow-glow: 0 8px 28px rgba(22, 163, 74, 0.35);
+
+  --radius-xl: 1.5rem;
+  --radius-2xl: 1.75rem;
+}
+
+html.dark {
+  --background: #0b1220;
+  --foreground: #e8eef7;
+  --muted: #1a2436;
+  --muted-foreground: #94a3b8;
+  --surface: rgba(17, 26, 42, 0.72);
+  --surface-elevated: rgba(24, 36, 56, 0.88);
+  --surface-hover: rgba(255, 255, 255, 0.06);
+  --border: rgba(148, 163, 184, 0.12);
+  --border-strong: rgba(148, 163, 184, 0.22);
+
+  --brand: #22c55e;
+  --brand-soft: #4ade80;
+  --brand-foreground: #052e16;
+  --accent-cyan: #22d3ee;
+  /* Keep ink dark in both themes so bg-ink + light text stays readable */
+  --ink: #0f172a;
+  --spring: #22c55e;
+  --mist: #e8eef7;
+
+  --glass-bg: rgba(15, 23, 42, 0.55);
+  --glass-border: rgba(148, 163, 184, 0.14);
+  --glass-blur: 20px;
+
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.28);
+  --shadow-lift: 0 22px 60px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 10px 32px rgba(34, 197, 94, 0.28);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-brand: var(--brand);
+  --color-brand-soft: var(--brand-soft);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-ink: var(--ink);
+  --color-spring: var(--spring);
+  --color-mist: var(--mist);
+  --font-sans: var(--font-figtree);
+  --font-display: var(--font-syne);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  min-height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-figtree), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+.font-display {
+  font-family: var(--font-syne), var(--font-figtree), system-ui, sans-serif;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--brand) 35%, transparent);
+  color: var(--foreground);
+}
+
+:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* Glass utility */
+.glass-panel {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--brand) 0%, var(--accent-cyan) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Ambient background orbs */
+.ambient-bg {
+  z-index: 0;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  opacity: 0.45;
+  animation: orb-drift 18s ease-in-out infinite alternate;
+}
+
+.ambient-orb-a {
+  width: 42vw;
+  height: 42vw;
+  max-width: 520px;
+  max-height: 520px;
+  top: -8%;
+  left: -6%;
+  background: color-mix(in oklab, var(--brand) 45%, transparent);
+}
+
+.ambient-orb-b {
+  width: 36vw;
+  height: 36vw;
+  max-width: 440px;
+  max-height: 440px;
+  top: 18%;
+  right: -8%;
+  background: color-mix(in oklab, var(--accent-cyan) 40%, transparent);
+  animation-delay: -6s;
+}
+
+.ambient-orb-c {
+  width: 28vw;
+  height: 28vw;
+  max-width: 360px;
+  max-height: 360px;
+  bottom: 8%;
+  left: 30%;
+  background: color-mix(in oklab, var(--brand-soft) 35%, transparent);
+  animation-delay: -11s;
+  opacity: 0.3;
+}
+
+@keyframes orb-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(24px, 18px, 0) scale(1.08);
+  }
+}
+
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Equalizer bars in music dock */
+.eq-bar {
+  display: inline-block;
+  width: 2px;
+  height: 8px;
+  border-radius: 999px;
+  background: currentColor;
+  animation: eq-pulse 0.9s ease-in-out infinite;
+  opacity: 0.85;
+}
+
+.eq-bar-2 {
+  animation-delay: 0.15s;
+  height: 12px;
+}
+
+.eq-bar-3 {
+  animation-delay: 0.3s;
+  height: 7px;
+}
+
+@keyframes eq-pulse {
+  0%,
+  100% {
+    transform: scaleY(0.45);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+/* Page enter helper */
+.page-enter {
+  animation: page-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes page-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Touch-friendly tap targets on mobile */
+@media (max-width: 640px) {
+  .ambient-orb {
+    filter: blur(48px);
+    opacity: 0.35;
+  }
+}
+
+/* Safe area for music dock */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .ambient-orb,
+  .eq-bar {
+    animation: none;
+  }
+
+  .page-enter {
+    animation: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
