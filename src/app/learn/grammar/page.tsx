@@ -6,7 +6,7 @@ import { Check, X, ChevronLeft } from "lucide-react";
 import { grammarLessons } from "@/lib/data/grammar";
 import { useApp } from "@/context/AppProvider";
 import { celebrateWin } from "@/lib/confetti";
-import { cn } from "@/lib/utils";
+import { cn, leadingEmoji, withoutLeadingEmoji } from "@/lib/utils";
 
 export default function GrammarPage() {
   const { completeLesson, progress } = useApp();
@@ -32,9 +32,10 @@ export default function GrammarPage() {
 
   if (lesson) {
     const allAnswered = lesson.exercises.every((_, i) => answers[i] != null);
+    const tip = withoutLeadingEmoji(lesson.illustration);
 
     return (
-      <div className="mx-auto max-w-2xl px-5 py-10 sm:px-8">
+      <div className="mx-auto w-full min-w-0 max-w-2xl px-0 py-4 sm:px-2 sm:py-8">
         <button
           type="button"
           onClick={() => {
@@ -42,35 +43,46 @@ export default function GrammarPage() {
             setAnswers({});
             setSubmitted(false);
           }}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-ink/50 hover:text-spring"
+          className="mb-5 inline-flex items-center gap-1 text-sm text-[var(--muted-foreground)] hover:text-spring"
         >
-          <ChevronLeft className="h-4 w-4" /> All lessons
+          <ChevronLeft className="h-4 w-4 shrink-0" /> All lessons
         </button>
 
-        <div className="mb-2 text-4xl" aria-hidden>
-          {lesson.illustration}
+        <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-spring/15 text-2xl">
+          {leadingEmoji(lesson.illustration)}
         </div>
-        <p className="text-xs font-semibold text-spring uppercase">{lesson.level}</p>
-        <h1 className="font-display mt-1 text-3xl font-semibold text-ink dark:text-white">
+        <p className="text-xs font-semibold tracking-wide text-spring uppercase">
+          {lesson.level}
+        </p>
+        <h1 className="font-display mt-1 text-balance break-words text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">
           {lesson.title}
         </h1>
-        <p className="mt-4 leading-relaxed text-ink/70 dark:text-white/70">
+
+        {tip ? (
+          <p className="mt-3 break-words rounded-2xl border border-spring/20 bg-spring/10 px-3 py-2.5 text-sm leading-relaxed text-[#052e16] dark:text-white">
+            {tip}
+          </p>
+        ) : null}
+
+        <p className="mt-4 text-pretty break-words text-sm leading-relaxed text-[var(--muted-foreground)] sm:text-base">
           {lesson.explanation}
         </p>
 
-        <ul className="mt-6 space-y-2">
+        <ul className="mt-5 space-y-2">
           {lesson.examples.map((ex, i) => (
             <li
               key={i}
-              className="rounded-2xl bg-spring/10 px-4 py-3 text-sm text-[#052e16] dark:text-white"
+              className="break-words rounded-2xl bg-spring/10 px-3 py-2.5 text-sm leading-relaxed text-[#052e16] sm:px-4 sm:py-3 dark:text-white"
             >
               {ex}
             </li>
           ))}
         </ul>
 
-        <h2 className="font-display mt-10 text-xl font-semibold">Exercises</h2>
-        <div className="mt-4 space-y-6">
+        <h2 className="font-display mt-8 text-lg font-semibold text-[var(--foreground)] sm:mt-10 sm:text-xl">
+          Exercises
+        </h2>
+        <div className="mt-4 space-y-4 sm:space-y-6">
           {lesson.exercises.map((ex, i) => {
             const chosen = answers[i];
             const isCorrect = submitted && chosen === ex.answer;
@@ -79,9 +91,9 @@ export default function GrammarPage() {
             return (
               <div
                 key={i}
-                className="rounded-3xl border border-ink/8 p-5 dark:border-white/10"
+                className="min-w-0 rounded-2xl border border-[var(--border)] p-3.5 sm:rounded-3xl sm:p-5"
               >
-                <p className="font-medium text-ink dark:text-white">
+                <p className="break-words text-sm font-medium text-[var(--foreground)] sm:text-base">
                   {i + 1}. {ex.question}
                 </p>
                 <div className="mt-3 grid gap-2">
@@ -94,11 +106,13 @@ export default function GrammarPage() {
                         setAnswers((a) => ({ ...a, [i]: oi }))
                       }
                       className={cn(
-                        "rounded-xl border px-3 py-2.5 text-left text-sm transition",
+                        "min-w-0 break-words rounded-xl border px-3 py-2.5 text-left text-sm transition",
                         chosen === oi && !submitted && "border-spring bg-spring/10",
                         submitted && oi === ex.answer && "border-spring bg-spring/20",
                         isWrong && chosen === oi && "border-rose-400 bg-rose-500/10",
-                        !chosen && !submitted && "border-ink/10 hover:border-ink/25 dark:border-white/10",
+                        chosen !== oi &&
+                          !submitted &&
+                          "border-[var(--border)] hover:border-[var(--border-strong)]",
                       )}
                     >
                       {opt}
@@ -111,7 +125,7 @@ export default function GrammarPage() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       className={cn(
-                        "mt-3 flex items-start gap-2 text-sm",
+                        "mt-3 flex items-start gap-2 break-words text-sm",
                         isCorrect ? "text-spring" : "text-amber-600",
                       )}
                     >
@@ -120,7 +134,7 @@ export default function GrammarPage() {
                       ) : (
                         <X className="mt-0.5 h-4 w-4 shrink-0" />
                       )}
-                      {ex.explanation}
+                      <span>{ex.explanation}</span>
                     </motion.p>
                   )}
                 </AnimatePresence>
@@ -134,12 +148,12 @@ export default function GrammarPage() {
             type="button"
             disabled={!allAnswered}
             onClick={finish}
-            className="mt-8 w-full rounded-full bg-spring py-3.5 text-sm font-semibold text-[#052e16] disabled:opacity-40"
+            className="mt-6 w-full rounded-full bg-spring py-3.5 text-sm font-semibold text-[#052e16] disabled:opacity-40 sm:mt-8"
           >
             Check answers
           </button>
         ) : (
-          <p className="mt-8 text-center text-sm text-ink/55 dark:text-white/55">
+          <p className="mt-6 text-center text-sm text-[var(--muted-foreground)] sm:mt-8">
             Lesson saved · +XP added to your progress
           </p>
         )}
@@ -148,17 +162,20 @@ export default function GrammarPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-10 sm:px-8">
-      <header className="mb-8">
+    <div className="mx-auto w-full min-w-0 max-w-3xl px-0 py-4 sm:px-2 sm:py-8">
+      <header className="mb-6 sm:mb-8">
         <p className="text-xs font-semibold tracking-widest text-spring uppercase">
           Grammar
         </p>
-        <h1 className="font-display mt-1 text-3xl font-semibold text-ink dark:text-white">
+        <h1 className="font-display mt-1 text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">
           Interactive lessons
         </h1>
+        <p className="mt-2 text-sm text-[var(--muted-foreground)]">
+          Short explanations, examples, and quick checks.
+        </p>
       </header>
 
-      <div className="grid gap-3">
+      <div className="grid gap-2.5 sm:gap-3">
         {grammarLessons.map((l, i) => {
           const done = progress.lessonsCompleted.includes(l.id);
           return (
@@ -167,26 +184,33 @@ export default function GrammarPage() {
               type="button"
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.04 }}
+              transition={{ delay: Math.min(i * 0.03, 0.4) }}
               onClick={() => {
                 setActiveId(l.id);
                 setAnswers({});
                 setSubmitted(false);
               }}
-              className="flex items-center gap-4 rounded-3xl border border-ink/8 bg-white/80 p-4 text-left transition hover:border-spring/30 dark:border-white/10 dark:bg-ink/40"
+              className="flex min-w-0 items-center gap-3 rounded-2xl border border-[var(--border)] bg-[var(--surface-elevated)] p-3 text-left transition hover:border-spring/30 sm:gap-4 sm:rounded-3xl sm:p-4"
             >
-              <span className="text-3xl">{l.illustration}</span>
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-spring/15 text-xl">
+                {leadingEmoji(l.illustration)}
+              </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-xs text-spring">{l.level}</span>
-                <span className="font-display block text-lg font-semibold text-ink dark:text-white">
+                <span className="block text-[11px] font-semibold text-spring sm:text-xs">
+                  {l.level}
+                </span>
+                <span className="font-display block truncate text-base font-semibold text-[var(--foreground)] sm:text-lg">
                   {l.title}
                 </span>
+                <span className="mt-0.5 block truncate text-xs text-[var(--muted-foreground)]">
+                  {withoutLeadingEmoji(l.illustration) || l.explanation}
+                </span>
               </span>
-              {done && (
-                <span className="rounded-full bg-spring/20 px-2.5 py-1 text-[10px] font-semibold text-spring">
+              {done ? (
+                <span className="shrink-0 rounded-full bg-spring/20 px-2 py-1 text-[10px] font-semibold text-spring">
                   Done
                 </span>
-              )}
+              ) : null}
             </motion.button>
           );
         })}

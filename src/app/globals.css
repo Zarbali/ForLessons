@@ -83,6 +83,7 @@ html {
 html,
 body {
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -90,6 +91,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-figtree), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
+  overflow-wrap: break-word;
 }
 
 .font-display {

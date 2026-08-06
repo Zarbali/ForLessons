@@ -6,6 +6,21 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+/** First emoji/pictograph from a string (for compact UI icons). */
+export function leadingEmoji(value: string, fallback = "📘"): string {
+  const match = value.match(
+    /^(?:\p{Extended_Pictographic}|\p{Emoji_Presentation}|[\u2600-\u27BF])(?:\uFE0F)?(?:\u200D(?:\p{Extended_Pictographic}|\p{Emoji_Presentation})(?:\uFE0F)?)*/u,
+  );
+  return match?.[0] ?? fallback;
+}
+
+/** Text after a leading emoji — useful as a short tip line. */
+export function withoutLeadingEmoji(value: string): string {
+  const emoji = leadingEmoji(value, "");
+  if (!emoji) return value.trim();
+  return value.slice(emoji.length).replace(/^[\s·\-–—→:]+/, "").trim();
+}
+
 /** Fisher–Yates shuffle (returns a new array). */
 export function shuffle<T>(items: readonly T[]): T[] {
   const result = [...items];

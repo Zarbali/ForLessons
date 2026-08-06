@@ -32,11 +32,13 @@ export function SectionHeader({
             {eyebrow}
           </p>
         ) : null}
-        <h2 className="font-display text-3xl font-semibold tracking-tight text-[var(--foreground)] sm:text-4xl">
+        <h2 className="font-display text-balance text-2xl font-semibold tracking-tight text-[var(--foreground)] sm:text-4xl">
           {title}
         </h2>
         {description ? (
-          <p className="text-base leading-relaxed text-[var(--muted-foreground)]">{description}</p>
+          <p className="text-pretty text-sm leading-relaxed text-[var(--muted-foreground)] sm:text-base">
+            {description}
+          </p>
         ) : null}
       </div>
       {action ? <div className="shrink-0">{action}</div> : null}

@@ -77,12 +77,12 @@ export default function SpeakingPage() {
   const chatStep = conversation[turn];
 
   return (
-    <div className="mx-auto max-w-2xl px-5 py-10 sm:px-8">
-      <header className="mb-8">
+    <div className="mx-auto w-full min-w-0 max-w-2xl px-0 py-4 sm:px-2 sm:py-8">
+      <header className="mb-6 sm:mb-8">
         <p className="text-xs font-semibold tracking-widest text-spring uppercase">
           Speaking
         </p>
-        <h1 className="font-display mt-1 text-3xl font-semibold text-ink dark:text-white">
+        <h1 className="font-display mt-1 text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">
           Find your voice
         </h1>
       </header>
@@ -118,9 +118,9 @@ export default function SpeakingPage() {
       )}
 
       {mode === "practice" ? (
-        <div className="rounded-3xl border border-ink/8 bg-white/80 p-6 dark:border-white/10 dark:bg-ink/50">
-          <p className="text-xs text-ink/40 uppercase">Say this</p>
-          <p className="font-display mt-3 text-2xl font-semibold text-ink dark:text-white">
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--surface-elevated)] p-4 sm:rounded-3xl sm:p-6">
+          <p className="text-xs text-[var(--muted-foreground)] uppercase">Say this</p>
+          <p className="font-display mt-3 text-pretty break-words text-xl font-semibold text-[var(--foreground)] sm:text-2xl">
             {target}
           </p>
           <div className="mt-6 flex flex-wrap gap-3">

@@ -82,10 +82,10 @@ export function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.45, duration: 0.55 }}
-          className="mt-6 flex max-w-md items-start gap-2 rounded-2xl border border-white/15 bg-white/8 px-4 py-3 text-left backdrop-blur-sm"
+          className="mt-6 flex w-full max-w-md items-start gap-2 rounded-2xl border border-white/15 bg-white/8 px-3 py-3 text-left backdrop-blur-sm sm:px-4"
         >
           <Heart className="mt-0.5 h-4 w-4 shrink-0 fill-spring text-spring" aria-hidden />
-          <p className="text-sm leading-relaxed text-white/80">
+          <p className="min-w-0 text-pretty break-words text-sm leading-relaxed text-white/80">
             Сайт специально для моей любимой, удачи с учёбой)
           </p>
         </motion.div>

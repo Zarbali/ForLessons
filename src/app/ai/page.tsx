@@ -156,20 +156,20 @@ export default function AIPage() {
   };
 
   return (
-    <div className="mx-auto flex h-[calc(100svh-8rem)] max-w-2xl flex-col px-5 py-8 sm:px-8">
-      <header className="mb-4 shrink-0">
+    <div className="mx-auto flex h-[calc(100svh-9.5rem)] w-full min-w-0 max-w-2xl flex-col px-0 py-4 sm:h-[calc(100svh-8rem)] sm:px-2 sm:py-8">
+      <header className="mb-3 shrink-0 sm:mb-4">
         <p className="text-xs font-semibold tracking-widest text-spring uppercase">
           Smart AI
         </p>
-        <h1 className="font-display mt-1 flex items-center gap-2 text-3xl font-semibold text-ink dark:text-white">
-          <Bot className="h-7 w-7 text-spring" /> Teacher
+        <h1 className="font-display mt-1 flex items-center gap-2 text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">
+          <Bot className="h-6 w-6 shrink-0 text-spring sm:h-7 sm:w-7" /> Teacher
         </h1>
-        <p className="mt-1 text-sm text-ink/50">
+        <p className="mt-1 text-xs text-[var(--muted-foreground)] sm:text-sm">
           Pattern-matched tutor · local data only
         </p>
       </header>
 
-      <div className="min-h-0 flex-1 space-y-3 overflow-y-auto rounded-3xl border border-ink/8 bg-white/50 p-4 dark:border-white/10 dark:bg-ink/40">
+      <div className="min-h-0 flex-1 space-y-3 overflow-y-auto rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-3 sm:rounded-3xl sm:p-4">
         {messages.map((m, i) => (
           <motion.div
             key={i}
@@ -177,15 +177,15 @@ export default function AIPage() {
             animate={{ opacity: 1, y: 0 }}
             className={
               m.role === "user"
-                ? "ml-8 rounded-2xl bg-ink px-4 py-3 text-sm whitespace-pre-wrap text-white"
-                : "mr-8 rounded-2xl bg-spring/15 px-4 py-3 text-sm whitespace-pre-wrap text-[#052e16] dark:text-white"
+                ? "ml-4 break-words rounded-2xl bg-ink px-3 py-2.5 text-sm whitespace-pre-wrap text-white sm:ml-8 sm:px-4 sm:py-3"
+                : "mr-4 break-words rounded-2xl bg-spring/15 px-3 py-2.5 text-sm whitespace-pre-wrap text-[#052e16] sm:mr-8 sm:px-4 sm:py-3 dark:text-white"
             }
           >
             {m.text}
           </motion.div>
         ))}
         {typing && (
-          <div className="mr-8 flex items-center gap-1 rounded-2xl bg-spring/10 px-4 py-3 text-sm text-[#052e16]/50">
+          <div className="mr-4 flex items-center gap-1 rounded-2xl bg-spring/10 px-3 py-2.5 text-sm text-[#052e16]/50 sm:mr-8 sm:px-4 sm:py-3">
             <Sparkles className="h-3.5 w-3.5 animate-pulse text-spring" />
             Thinking…
           </div>

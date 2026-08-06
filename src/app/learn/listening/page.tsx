@@ -49,12 +49,12 @@ export default function ListeningPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-10 sm:px-8">
-      <header className="mb-8">
+    <div className="mx-auto w-full min-w-0 max-w-3xl px-0 py-4 sm:px-2 sm:py-8">
+      <header className="mb-6 sm:mb-8">
         <p className="text-xs font-semibold tracking-widest text-spring uppercase">
           Listening
         </p>
-        <h1 className="font-display mt-1 text-3xl font-semibold text-ink dark:text-white">
+        <h1 className="font-display mt-1 text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">
           Train your ear
         </h1>
       </header>
@@ -85,12 +85,14 @@ export default function ListeningPage() {
         key={clip.id}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="overflow-hidden rounded-[2rem] border border-ink/8 bg-ink p-6 text-white shadow-xl sm:p-8"
+        className="overflow-hidden rounded-[1.5rem] border border-ink/8 bg-ink p-4 text-white shadow-xl sm:rounded-[2rem] sm:p-8"
       >
         <p className="text-xs text-spring uppercase">
           Level {clip.difficulty} · {clip.accent}
         </p>
-        <h2 className="font-display mt-2 text-2xl font-semibold">{clip.title}</h2>
+        <h2 className="font-display mt-2 break-words text-xl font-semibold sm:text-2xl">
+          {clip.title}
+        </h2>
 
         <div className="mt-8 flex items-center justify-center gap-4">
           <button
@@ -159,7 +161,7 @@ export default function ListeningPage() {
           <motion.p
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
-            className="mt-4 rounded-2xl bg-white/5 p-4 text-sm leading-relaxed text-white/80"
+            className="mt-4 break-words rounded-2xl bg-white/5 p-3 text-sm leading-relaxed text-white/80 sm:p-4"
           >
             {clip.transcript}
           </motion.p>

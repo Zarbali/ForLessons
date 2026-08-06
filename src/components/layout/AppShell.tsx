@@ -22,16 +22,16 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <main
         className={cn(
-          "relative z-10 w-full flex-1 pb-32 sm:pb-36",
+          "relative z-10 w-full min-w-0 flex-1 pb-32 sm:pb-36",
           isHome
             ? "max-w-none px-0 pt-0"
-            : "mx-auto max-w-6xl px-3 pt-5 sm:px-6 sm:pt-10",
+            : "mx-auto max-w-6xl px-3 pt-4 sm:px-6 sm:pt-10",
         )}
       >
         {children}
       </main>
 
-      <footer className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-2 text-center text-[11px] text-[var(--muted-foreground)] sm:px-6">
+      <footer className="relative z-10 mx-auto w-full max-w-6xl px-4 pb-2 text-center text-[10px] leading-relaxed text-[var(--muted-foreground)] break-words sm:px-6 sm:text-[11px]">
         Veronika · Сайт специально для моей любимой, удачи с учёбой)
       </footer>
 

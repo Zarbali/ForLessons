@@ -33,12 +33,12 @@ export default function VocabularyPage() {
   }, [query, category]);
 
   return (
-    <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8">
-      <header className="mb-8">
+    <div className="mx-auto w-full min-w-0 max-w-6xl px-0 py-4 sm:px-2 sm:py-8">
+      <header className="mb-6 sm:mb-8">
         <p className="text-xs font-semibold tracking-widest text-spring uppercase">
           Vocabulary
         </p>
-        <h1 className="font-display mt-1 text-3xl font-semibold text-ink dark:text-white">
+        <h1 className="font-display mt-1 text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">
           Word library
         </h1>
       </header>
@@ -53,14 +53,14 @@ export default function VocabularyPage() {
         />
       </div>
 
-      <div className="mb-6 flex flex-wrap gap-2">
+      <div className="-mx-0.5 mb-6 flex gap-2 overflow-x-auto px-0.5 pb-1 scrollbar-none">
         {categories.map((c) => (
           <button
             key={c}
             type="button"
             onClick={() => setCategory(c)}
             className={cn(
-              "rounded-full px-3 py-1.5 text-xs font-medium",
+              "shrink-0 rounded-full px-3 py-1.5 text-xs font-medium",
               category === c
                 ? "bg-ink text-white dark:bg-spring dark:text-[#052e16]"
                 : "bg-ink/5 dark:bg-white/10",
@@ -114,11 +114,11 @@ export default function VocabularyPage() {
             key={selected.id}
             initial={{ opacity: 0, x: 8 }}
             animate={{ opacity: 1, x: 0 }}
-            className="rounded-3xl border border-ink/8 bg-white p-6 shadow-sm dark:border-white/10 dark:bg-ink/50"
+            className="min-w-0 rounded-2xl border border-[var(--border)] bg-[var(--surface-elevated)] p-4 shadow-sm sm:rounded-3xl sm:p-6"
           >
-            <div className="flex items-start justify-between">
-              <span className="text-4xl">{selected.imageEmoji}</span>
-              <div className="flex gap-2">
+            <div className="flex items-start justify-between gap-3">
+              <span className="text-3xl sm:text-4xl">{selected.imageEmoji}</span>
+              <div className="flex shrink-0 gap-1.5 sm:gap-2">
                 <button
                   type="button"
                   onClick={() => speak(selected.word)}
@@ -163,11 +163,11 @@ export default function VocabularyPage() {
                 </button>
               </div>
             </div>
-            <h2 className="font-display mt-4 text-2xl font-semibold text-ink dark:text-white">
+            <h2 className="font-display mt-4 break-words text-xl font-semibold text-[var(--foreground)] sm:text-2xl">
               {selected.word}
             </h2>
-            <p className="text-sm text-ink/45">{selected.phonetic}</p>
-            <p className="mt-2 text-lg text-ink/80 dark:text-white/80">
+            <p className="text-sm text-[var(--muted-foreground)]">{selected.phonetic}</p>
+            <p className="mt-2 break-words text-base text-[var(--foreground)]/80 sm:text-lg">
               {selected.translation}
             </p>
             <p className="mt-1 text-xs text-spring">
@@ -179,10 +179,12 @@ export default function VocabularyPage() {
                 <p className="text-xs font-semibold tracking-wide text-ink/40 uppercase">
                   Example
                 </p>
-                <p className="mt-1 text-sm italic dark:text-white/80">
+                <p className="mt-1 break-words text-sm italic text-[var(--foreground)]/80">
                   “{selected.example}”
                 </p>
-                <p className="text-xs text-ink/40">{selected.exampleTranslation}</p>
+                <p className="break-words text-xs text-[var(--muted-foreground)]">
+                  {selected.exampleTranslation}
+                </p>
                 <button
                   type="button"
                   onClick={() => speak(selected.example, { rate: 0.9 })}

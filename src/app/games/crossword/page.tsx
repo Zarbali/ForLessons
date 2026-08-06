@@ -87,33 +87,37 @@ export default function CrosswordPage() {
 
   return (
     <GameShell title="Crossword" subtitle="Small puzzle from Veronika vocabulary.">
-      <div
-        className="mx-auto grid w-fit gap-0.5"
-        style={{ gridTemplateColumns: `repeat(${puzzle.size}, 1.75rem)` }}
-      >
-        {puzzle.grid.map((row, r) =>
-          row.map((cell, c) =>
-            cell ? (
-              <input
-                key={key(r, c)}
-                maxLength={1}
-                value={values[key(r, c)] || ""}
-                onChange={(e) =>
-                  setValues((v) => ({
-                    ...v,
-                    [key(r, c)]: e.target.value.replace(/[^a-zA-Z]/g, ""),
-                  }))
-                }
-                className="h-7 w-7 rounded-sm border border-ink/20 bg-white text-center text-xs font-bold uppercase outline-none focus:border-spring dark:bg-ink/60"
-              />
-            ) : (
-              <div
-                key={key(r, c)}
-                className="h-7 w-7 rounded-sm bg-ink/10 dark:bg-white/5"
-              />
+      <div className="w-full overflow-x-auto pb-1">
+        <div
+          className="mx-auto grid w-fit gap-0.5"
+          style={{
+            gridTemplateColumns: `repeat(${puzzle.size}, minmax(1.5rem, 1.75rem))`,
+          }}
+        >
+          {puzzle.grid.map((row, r) =>
+            row.map((cell, c) =>
+              cell ? (
+                <input
+                  key={key(r, c)}
+                  maxLength={1}
+                  value={values[key(r, c)] || ""}
+                  onChange={(e) =>
+                    setValues((v) => ({
+                      ...v,
+                      [key(r, c)]: e.target.value.replace(/[^a-zA-Z]/g, ""),
+                    }))
+                  }
+                  className="h-6 w-6 rounded-sm border border-ink/20 bg-white text-center text-[11px] font-bold uppercase outline-none focus:border-spring sm:h-7 sm:w-7 sm:text-xs dark:bg-ink/60"
+                />
+              ) : (
+                <div
+                  key={key(r, c)}
+                  className="h-6 w-6 rounded-sm bg-ink/10 sm:h-7 sm:w-7 dark:bg-white/5"
+                />
+              ),
             ),
-          ),
-        )}
+          )}
+        </div>
       </div>
 
       <ol className="mt-6 space-y-2 text-sm">

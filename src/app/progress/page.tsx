@@ -102,12 +102,14 @@ export default function ProgressPage() {
         <p className="text-xs font-semibold tracking-widest text-spring uppercase">
           Progress
         </p>
-        <h1 className="font-display mt-1 text-3xl font-semibold text-[var(--foreground)]">
+        <h1 className="font-display mt-1 text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">
           Your journey
         </h1>
-        <p className="mt-2 flex items-center gap-2 text-sm text-[var(--muted-foreground)]">
-          <span className="text-spring">♥</span>
-          Сайт специально для моей любимой, удачи с учёбой)
+        <p className="mt-2 flex items-start gap-2 text-pretty text-sm text-[var(--muted-foreground)]">
+          <span className="shrink-0 text-spring">♥</span>
+          <span className="min-w-0 break-words">
+            Сайт специально для моей любимой, удачи с учёбой)
+          </span>
         </p>
       </header>
 

@@ -68,29 +68,29 @@ export default function ReadingPage() {
     const gloss = story.gloss ?? story.vocabulary ?? {};
 
     return (
-      <div className="relative mx-auto max-w-2xl px-5 py-10 sm:px-8">
+      <div className="relative mx-auto w-full min-w-0 max-w-2xl px-0 py-4 sm:px-2 sm:py-8">
         <button
           type="button"
           onClick={() => {
             setActiveId(null);
             setTooltip(null);
           }}
-          className="mb-6 inline-flex items-center gap-1 text-sm text-ink/50 hover:text-spring"
+          className="mb-5 inline-flex items-center gap-1 text-sm text-[var(--muted-foreground)] hover:text-spring"
         >
-          <ChevronLeft className="h-4 w-4" /> Stories
+          <ChevronLeft className="h-4 w-4 shrink-0" /> Stories
         </button>
 
         <p className="text-xs text-spring uppercase">
           Level {story.difficulty}
         </p>
-        <h1 className="font-display mt-1 text-3xl font-semibold text-ink dark:text-white">
+        <h1 className="font-display mt-1 text-balance break-words text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">
           {story.title}
         </h1>
-        <p className="mt-2 text-xs text-ink/40">
+        <p className="mt-2 text-xs text-[var(--muted-foreground)]">
           Tap highlighted words for translation
         </p>
 
-        <article className="mt-8 space-y-5 text-lg leading-relaxed text-ink/85 dark:text-white/85">
+        <article className="mt-6 space-y-4 text-base leading-relaxed break-words text-[var(--foreground)]/85 sm:mt-8 sm:space-y-5 sm:text-lg">
           {paragraphs.map((p, i) => (
             <p key={i}>{renderParagraph(p, gloss)}</p>
           ))}
@@ -108,8 +108,11 @@ export default function ReadingPage() {
           <motion.div
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
-            className="fixed z-50 -translate-x-1/2 -translate-y-full rounded-xl bg-ink px-3 py-2 text-sm text-white shadow-lg"
-            style={{ left: tooltip.x, top: tooltip.y - 8 }}
+            className="fixed z-50 max-w-[min(90vw,20rem)] -translate-x-1/2 -translate-y-full break-words rounded-xl bg-ink px-3 py-2 text-sm text-white shadow-lg"
+            style={{
+              left: `min(max(${tooltip.x}px, 5rem), calc(100vw - 5rem))`,
+              top: tooltip.y - 8,
+            }}
             role="tooltip"
           >
             <strong className="text-spring">{tooltip.word}</strong>
@@ -129,12 +132,12 @@ export default function ReadingPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-10 sm:px-8">
-      <header className="mb-8">
+    <div className="mx-auto w-full min-w-0 max-w-3xl px-0 py-4 sm:px-2 sm:py-8">
+      <header className="mb-6 sm:mb-8">
         <p className="text-xs font-semibold tracking-widest text-spring uppercase">
           Reading
         </p>
-        <h1 className="font-display mt-1 text-3xl font-semibold text-ink dark:text-white">
+        <h1 className="font-display mt-1 text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">
           Stories
         </h1>
       </header>
@@ -178,10 +181,10 @@ export default function ReadingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.05 }}
             onClick={() => setActiveId(s.id)}
-            className="rounded-3xl border border-ink/8 bg-white/80 p-5 text-left transition hover:border-spring/30 dark:border-white/10 dark:bg-ink/40"
+            className="min-w-0 rounded-2xl border border-[var(--border)] bg-[var(--surface-elevated)] p-4 text-left transition hover:border-spring/30 sm:rounded-3xl sm:p-5"
           >
             <span className="text-xs text-spring">Level {s.difficulty}</span>
-            <span className="font-display mt-1 block text-xl font-semibold text-ink dark:text-white">
+            <span className="font-display mt-1 block break-words text-lg font-semibold text-[var(--foreground)] sm:text-xl">
               {s.title}
             </span>
           </motion.button>

@@ -71,7 +71,7 @@ export function Navbar() {
           </span>
           <span
             className={cn(
-              "font-display text-xl font-semibold tracking-tight transition",
+              "font-display max-w-[40vw] truncate text-lg font-semibold tracking-tight transition sm:max-w-none sm:text-xl",
               overHero ? "text-white" : "text-[var(--foreground)]",
             )}
           >

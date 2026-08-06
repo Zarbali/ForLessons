@@ -96,19 +96,19 @@ export default function WritingPage() {
   };
 
   return (
-    <div className="mx-auto max-w-2xl px-5 py-10 sm:px-8">
-      <header className="mb-8">
+    <div className="mx-auto w-full min-w-0 max-w-2xl px-0 py-4 sm:px-2 sm:py-8">
+      <header className="mb-6 sm:mb-8">
         <p className="text-xs font-semibold tracking-widest text-spring uppercase">
           Writing
         </p>
-        <h1 className="font-display mt-1 text-3xl font-semibold text-ink dark:text-white">
+        <h1 className="font-display mt-1 text-2xl font-semibold text-[var(--foreground)] sm:text-3xl">
           Put it into words
         </h1>
       </header>
 
-      <div className="rounded-3xl border border-spring/25 bg-spring/10 p-4 text-sm text-[#052e16] dark:text-white">
+      <div className="rounded-2xl border border-spring/25 bg-spring/10 p-3.5 text-sm text-[#052e16] sm:rounded-3xl sm:p-4 dark:text-white">
         <p className="text-xs font-semibold text-spring uppercase">Prompt</p>
-        <p className="mt-1">{prompt}</p>
+        <p className="mt-1 break-words leading-relaxed">{prompt}</p>
       </div>
 
       <textarea
@@ -119,9 +119,9 @@ export default function WritingPage() {
         }}
         rows={8}
         placeholder="Start writing here…"
-        className="mt-5 w-full resize-y rounded-3xl border border-ink/10 bg-white/80 p-5 text-base leading-relaxed outline-none focus:border-spring dark:border-white/10 dark:bg-ink/50 dark:text-white"
+        className="mt-5 w-full resize-y rounded-2xl border border-[var(--border)] bg-[var(--surface-elevated)] p-4 text-base leading-relaxed outline-none focus:border-spring sm:rounded-3xl sm:p-5"
       />
-      <div className="mt-2 flex justify-between text-xs text-ink/40">
+      <div className="mt-2 flex flex-wrap items-center justify-between gap-1 text-xs text-[var(--muted-foreground)]">
         <span>{wordCount} words</span>
         <span>Rule-based tips · no account needed</span>
       </div>
